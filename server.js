@@ -17,11 +17,20 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // cors
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN || '*', // Allow all origins by default
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type]
-  }
+const allowedOrigins = ['http://localhost:5173', 'https://your-frontend-production-link.com'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
+
 
 // Rate limiting
 const limiter = rateLimit({
