@@ -16,6 +16,13 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// cors
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || '*', // Allow all origins by default
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type]
+  }
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
